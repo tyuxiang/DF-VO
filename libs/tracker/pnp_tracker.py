@@ -69,7 +69,7 @@ class PnpTracker():
         kp2 = kp2[y_idx]
 
         # Filter keypoints outside depth range
-        kp1_int = kp1.astype(np.int)
+        kp1_int = kp1.astype(int)
         kp_depths = depth_1[kp1_int[:, 1], kp1_int[:, 0]]
         non_zero_mask = (kp_depths != 0)
         depth_range_mask = (kp_depths < self.cfg.depth.max_depth) * (kp_depths > self.cfg.depth.min_depth)

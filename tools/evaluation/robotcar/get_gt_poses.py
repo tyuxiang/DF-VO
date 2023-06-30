@@ -32,7 +32,7 @@ for seq in [
 
     # Load data
     timestamp_txt = os.path.join(dataset_dir, seq, "stereo.timestamps")
-    timestamps = np.loadtxt(timestamp_txt)[:, 0].astype(np.int)
+    timestamps = np.loadtxt(timestamp_txt)[:, 0].astype(int)
     origin_timestamp = list(timestamps)
 
     raw_vo_path = os.path.join(dataset_dir, seq, "vo/vo.csv")

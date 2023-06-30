@@ -77,6 +77,7 @@ class DFVO():
         # Deep networks
         self.deep_models = DeepModel(self.cfg)
         self.deep_models.initialize_models()
+        print("initialized")
         if self.cfg.online_finetune.enable:
             self.deep_models.setup_train()
         
@@ -351,9 +352,11 @@ class DFVO():
         print("==> Running sequence: {}".format(self.cfg.seq))
 
         if self.cfg.no_confirm:
-            start_frame = 0
+            start_frame = self.cfg.start_frame
         else:
             start_frame = int(input("Start with frame: "))
+        
+        print(self.dataset)
 
         for img_id in tqdm(range(start_frame, len(self.dataset), self.cfg.frame_step)):
             self.timers.start('DF-VO')

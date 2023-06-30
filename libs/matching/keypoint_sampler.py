@@ -70,7 +70,7 @@ class KeypointSampler():
 
         # uniform sampling keypoints
         total_num = (x1-x0) * (y1-y0) - 1
-        kp_list = np.linspace(0, total_num, N, dtype=np.int)
+        kp_list = np.linspace(0, total_num, N, dtype=int)
         return kp_list
 
     def kp_selection(self, cur_data, ref_data):

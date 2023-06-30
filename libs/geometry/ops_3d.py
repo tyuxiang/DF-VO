@@ -26,7 +26,7 @@ def convert_sparse3D_to_depth(kp, XYZ, height, width):
     """
     # initialize depth map
     depth = np.zeros((height, width))
-    kp_int = kp.astype(np.int)
+    kp_int = kp.astype(int)
 
     # remove out of region keypoints
     y_idx = (kp_int[:, 0] >= 0) * (kp_int[:, 0] < width)

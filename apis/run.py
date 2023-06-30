@@ -14,12 +14,16 @@ import os
 import random
 import sys
 import torch
+# import warnings
+# warnings.simplefilter("error")
+# warnings.simplefilter("ignore", (PendingDeprecationWarning, DeprecationWarning, TypeError))
 
 sys.path.insert(0, os.getcwd())
 
 from libs.dfvo import DFVO
 from libs.general.utils import mkdir_if_not_exists
 from libs.general.configuration import ConfigLoader
+import yaml
 
 
 config_loader = ConfigLoader()
@@ -70,6 +74,9 @@ def read_cfgs():
             mkdir_if_not_exists(cfg.directory.result_dir)
         else:
             exit()
+    with open(args.configuration, 'r') as f:
+        parameter_dict = yaml.load(f, Loader=yaml.FullLoader)
+    cfg.start_frame = parameter_dict['start_frame']
     return args, cfg
 
 

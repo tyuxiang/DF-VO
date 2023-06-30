@@ -35,12 +35,12 @@ def draw_match_temporal(img1, kp1, img2, kp2, N):
 
     # generate a list of keypoints to be drawn
     kp_list = np.linspace(0, min(kp1.shape[0], kp2.shape[0])-1, N,
-                                            dtype=np.int
+                                            dtype=int
                                             )
     for i in kp_list:
         # get location of of keypoints
-        center1 = (kp1[i][0].astype(np.int), kp1[i][1].astype(np.int))
-        center2 = (kp2[i][0].astype(np.int), kp2[i][1].astype(np.int))
+        center1 = (kp1[i][0].astype(int), kp1[i][1].astype(int))
+        center2 = (kp2[i][0].astype(int), kp2[i][1].astype(int))
 
         # randomly pick a color for the match
         color = np.random.randint(0, 255, 3)
@@ -69,12 +69,12 @@ def draw_match_side(img1, kp1, img2, kp2, N, inliers):
     
     # generate a list of keypoints to be drawn
     kp_list = np.linspace(0, min(kp1.shape[0], kp2.shape[0])-1, N,
-                            dtype=np.int
+                            dtype=int
                             )
     
     # Convert keypoints to cv2.Keypoint object
-    cv_kp1 = [cv2.KeyPoint(x=pt[0], y=pt[1], _size=1) for pt in kp1[kp_list]]
-    cv_kp2 = [cv2.KeyPoint(x=pt[0], y=pt[1], _size=1) for pt in kp2[kp_list]]
+    cv_kp1 = [cv2.KeyPoint(x=pt[0], y=pt[1], size=1) for pt in kp1[kp_list]]
+    cv_kp2 = [cv2.KeyPoint(x=pt[0], y=pt[1], size=1) for pt in kp2[kp_list]]
 
     good_matches = [cv2.DMatch(_imgIdx=0, _queryIdx=idx, _trainIdx=idx,_distance=0) for idx in range(len(cv_kp1))]
 

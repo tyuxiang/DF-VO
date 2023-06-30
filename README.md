@@ -1,3 +1,10 @@
+# Changes
+This fork implements DF-VO such that it could run on Ubuntu 20.04, Cuda11.6, Pytorch 1.13.1, torchvision 0.14.1.
+The results obtained from testing on KITTI sequence 10 was better than the ones reported in both the ICRA paper and the extended report.
+A new oxford robotcar script called oxford_robotcar_custom.py was created to evaluate on the left stereo camera image instead of the center camera.
+
+Build and running instructions are the same as the original implementation.
+
 # Introduction
 
 This repo implements the system described in the ICRA-2020 paper and the extended report:

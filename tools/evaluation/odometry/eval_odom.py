@@ -10,7 +10,7 @@
 
 import argparse
 
-from tools.evaluation.odometry.kitti_odometry import KittiEvalOdom
+from kitti_odometry import KittiEvalOdom
 
 
 def argument_parsing():

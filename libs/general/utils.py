@@ -326,7 +326,7 @@ def convert_SE3_to_arr(SE3_dict, timestamps=None):
     return poses_dict
 
 
-def save_traj(txt, poses, format='kitti'):
+def save_traj(txt, poses, format='kitti', timestamps=None):
     """Save trajectory (absolute poses) as KITTI odometry file format
 
     Args:
@@ -337,7 +337,7 @@ def save_traj(txt, poses, format='kitti'):
             - **tum**: timestamp tx ty tz qx qy qz qw
     """
     with open(txt, 'w') as f:
-        for i in poses:
+        for ind, i in enumerate(poses):
             pose = poses[i]
             if format == 'kitti':
                 pose = pose.flatten()[:12]
@@ -351,5 +351,23 @@ def save_traj(txt, poses, format='kitti'):
                                     str(tx), str(ty), str(tz),
                                     str(qx), str(qy), str(qz), str(qw)]
                                     )
+            elif format == 'robotcar':
+                if timestamps is not None:
+                    ts = timestamps[ind]
+                    qw, qx, qy, qz = rot2quat(pose[:3, :3])
+                    tx, ty, tz = pose[:3, 3]
+                    line_to_write = " ".join([
+                                        str(ts), 
+                                        str(tx), str(ty), str(tz),
+                                        str(qx), str(qy), str(qz), str(qw)]
+                                        )
+                else:
+                    qw, qx, qy, qz = rot2quat(pose[:3, :3])
+                    tx, ty, tz = pose[:3, 3]
+                    line_to_write = " ".join([
+                                        str(i), 
+                                        str(tx), str(ty), str(tz),
+                                        str(qx), str(qy), str(qz), str(qw)]
+                                        )
             f.writelines(line_to_write+"\n")
     print("Trajectory saved.")

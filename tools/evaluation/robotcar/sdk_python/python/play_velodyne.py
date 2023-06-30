@@ -112,8 +112,8 @@ def main():
 
         else:
             # Ranges and Intensities visualisation using OpenCV
-            intensities_vis = colourmap[np.clip((intensities * 4).astype(np.int), 0, colourmap.shape[0] - 1)]
-            ranges_vis = colourmap[np.clip((ranges * 4).astype(np.int), 0, colourmap.shape[0] - 1)]
+            intensities_vis = colourmap[np.clip((intensities * 4).astype(int), 0, colourmap.shape[0] - 1)]
+            ranges_vis = colourmap[np.clip((ranges * 4).astype(int), 0, colourmap.shape[0] - 1)]
             visualisation = np.concatenate((intensities_vis, ranges_vis), 0)
             visualisation = cv2.resize(visualisation, None, fy=6 * args.scale, fx=args.scale,
                                        interpolation=cv2.INTER_NEAREST)

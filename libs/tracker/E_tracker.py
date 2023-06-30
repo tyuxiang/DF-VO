@@ -616,7 +616,7 @@ class EssTracker():
             # RANSAC scaling solver
             self.timers.start('scale ransac', 'scale_recovery')
             ransac = linear_model.RANSACRegressor(
-                        base_estimator=linear_model.LinearRegression(
+                        estimator=linear_model.LinearRegression(
                             fit_intercept=False),
                         min_samples=self.cfg.scale_recovery.ransac.min_samples,
                         max_trials=self.cfg.scale_recovery.ransac.max_trials,

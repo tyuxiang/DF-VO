@@ -29,7 +29,7 @@ class OxfordRobotCar(Dataset):
 
         # undistortion model
         camera_model_dir = os.path.join(self.cfg.directory.img_seq_dir, 'robotcar-dataset-sdk', 'models')
-        img_dir = os.path.join(self.cfg.directory.img_seq_dir, self.cfg.seq, 'stereo/centre')
+        img_dir = os.path.join(self.cfg.directory.img_seq_dir, self.cfg.seq, 'stereo/left_undistort')
         self.model = CameraModel(camera_model_dir, img_dir)
 
     def synchronize_timestamps(self):
@@ -43,7 +43,11 @@ class OxfordRobotCar(Dataset):
         timestamp_txt = os.path.join(self.cfg.directory.img_seq_dir,
                                     self.cfg.seq,
                                     "stereo.timestamps")
-        timestamps = np.loadtxt(timestamp_txt)[:, 0].astype(int)
+                                    # "stereo",
+                                    # "times-single-absolute.txt")
+        timestamps = np.loadtxt(timestamp_txt)[:, 0].astype(int) # originally. for use with stereo.timestamps
+        self.timestamps = timestamps
+        # timestamps = np.loadtxt(timestamp_txt).astype(np.int)
 
 
         self.rgb_d_pose_pair = {}
@@ -72,7 +76,7 @@ class OxfordRobotCar(Dataset):
             poses (dict): poses, each pose is a [4x4] array
         """
         global_poses_arr = convert_SE3_to_arr(poses)
-        save_traj(traj_txt, global_poses_arr, format='kitti')
+        save_traj(traj_txt, global_poses_arr, format='robotcar', timestamps=self.timestamps[self.cfg.start_frame:])
 
     def get_intrinsics_param(self):
         """Read intrinsics parameters for each dataset
@@ -89,8 +93,9 @@ class OxfordRobotCar(Dataset):
                             self.cfg.directory.img_seq_dir,
                             "robotcar-dataset-sdk",
                             "models",
-                            "stereo_narrow_left.txt"
+                            "stereo_wide_left.txt"
                             )
+        # intrinsic_txt = "/home/marcelbp/Desktop/Oxford-dataset/data_for_VO_rain_eval/robotcar-dataset-sdk/models/stereo_wide_left.txt"
         ref_K_params = np.loadtxt(intrinsic_txt)[0]
         K = np.eye(3)
         K[0, 0] = ref_K_params[0] # fx
@@ -128,8 +133,8 @@ class OxfordRobotCar(Dataset):
         img_seq_dir = os.path.join(
                             self.cfg.directory.img_seq_dir,
                             self.cfg.seq,
-                            "undistorted_stereo",
-                            "centre"
+                            "stereo",
+                            "left_undistort"
                             )
         data_dir['img'] = os.path.join(img_seq_dir)
  
@@ -188,8 +193,10 @@ class OxfordRobotCar(Dataset):
         Returns:
             gt_poses (dict): each pose is a [4x4] array
         """
+        # not used. leave the config blank
+        print('WARNING: using get_gt_poses()')
         timestamp_txt = os.path.join(self.cfg.directory.gt_pose_dir, self.cfg.seq, "stereo.timestamps")
-        timestamps = np.loadtxt(timestamp_txt)[:, 0].astype(int)
+        timestamps = np.loadtxt(timestamp_txt)[:, 0].astype(np.int)
         origin_timestamp = list(timestamps)
 
         raw_vo_path = os.path.join(self.cfg.directory.gt_pose_dir, self.cfg.seq, "vo/vo.csv")
