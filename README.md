@@ -74,7 +74,7 @@ conda activate dfvo  # activate the environment [dfvo]
 
 The main dataset used in this project is [KITTI Driving Dataset](http://www.cvlibs.net/datasets/kitti/eval_odometry.php). After downloaing the dataset, create a softlink in the current repo.
 ```
-ln -s KITTI_ODOMETRY/sequences dataset/kitti_odom/odom_data
+ln -s KITTI_ODOMETRY/sequences dataset/kitti_odom/odom_data_jpg
 ```
 
 For our trained models, please visit [here](https://www.dropbox.com/sh/9by21564eb0xloh/AABHFMlWd_ja14c5wU4R1KUua?dl=0) to download the models and save the models into the directory `model_zoo/`.

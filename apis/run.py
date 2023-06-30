@@ -74,9 +74,9 @@ def read_cfgs():
             mkdir_if_not_exists(cfg.directory.result_dir)
         else:
             exit()
-    with open(args.configuration, 'r') as f:
-        parameter_dict = yaml.load(f, Loader=yaml.FullLoader)
-    cfg.start_frame = parameter_dict['start_frame']
+    # with open(args.configuration, 'r') as f:
+    #     parameter_dict = yaml.load(f, Loader=yaml.FullLoader)
+    # cfg.start_frame = parameter_dict['start_frame']
     return args, cfg
 
 
