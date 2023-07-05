@@ -28,7 +28,7 @@ class OxfordRobotCar(Dataset):
         super(OxfordRobotCar, self).__init__(*args, **kwargs)
 
         # undistortion model
-        camera_model_dir = os.path.join(self.cfg.directory.img_seq_dir, 'robotcar-dataset-sdk', 'models')
+        camera_model_dir = os.path.join(self.cfg.directory.config_dir)
         img_dir = os.path.join(self.cfg.directory.img_seq_dir, self.cfg.seq, 'stereo/left_undistort')
         self.model = CameraModel(camera_model_dir, img_dir)
 
@@ -90,9 +90,7 @@ class OxfordRobotCar(Dataset):
 
         # get reference intrinsics
         intrinsic_txt = os.path.join(
-                            self.cfg.directory.img_seq_dir,
-                            "robotcar-dataset-sdk",
-                            "models",
+                            self.cfg.directory.config_dir,
                             "stereo_wide_left.txt"
                             )
         # intrinsic_txt = "/home/marcelbp/Desktop/Oxford-dataset/data_for_VO_rain_eval/robotcar-dataset-sdk/models/stereo_wide_left.txt"
